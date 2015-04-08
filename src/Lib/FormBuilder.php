@@ -1,6 +1,5 @@
 <?php namespace Abh\Formbuilder\Lib;
 
-
 /**
  * Class FormHandler
  * @package Abh\Formbuilder\Handlers
@@ -34,14 +33,7 @@ class FormBuilder
      * @param $method
      * @param $action
      * @param $type
-     */
-    public function __construct()
-    {
-
-    }
-
-    /**
-     *
+     * @return mixed
      */
     public function buildForm($model, $method, $action, $type)
     {
@@ -148,6 +140,10 @@ class FormBuilder
         }
     }
 
+    /**
+     * @param $model
+     * @return bool
+     */
     private function modelUsesTrait($model)
     {
 
