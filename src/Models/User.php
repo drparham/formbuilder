@@ -11,6 +11,6 @@ class User extends ParentUser
 
     protected $table = 'westcott.users';
 
-    public $skipFields = array('updated_at');
+    protected $skipFields = array('updated_at');
 
 }

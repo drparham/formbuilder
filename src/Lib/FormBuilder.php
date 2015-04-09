@@ -74,8 +74,10 @@ class FormBuilder
      */
     public function setAction($action = '/')
     {
-        if($action = '/' || $this->routeExists($action))
-        {
+        if($action == '/') {
+            $this->action = $action;
+            return $action;
+        }elseif($this->routeExists($action)) {
             $this->action = $action;
             return $action;
         }else {
@@ -203,6 +205,13 @@ class FormBuilder
     {
         $formDefinitions = $this->model->getFormDefinitions();
         $formLabels = $this->model->getLabelDefinitions();
+
+        foreach ($fields as $key => $field) {
+            if($field->Field == "id" ) {
+                unset($fields[$key]);
+                break;
+            }
+        }
 
         return view('abh/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
     }
