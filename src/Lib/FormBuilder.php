@@ -35,7 +35,7 @@ class FormBuilder
      * @param $type
      * @return mixed
      */
-    public function buildForm($model, $method, $action, $type)
+    public function buildForm($model, $method, $action, $type, $id = null)
     {
         $this->setModel($model);
         $this->setMethod($method);
@@ -44,7 +44,7 @@ class FormBuilder
 
         $functionName = $this->type.'Form';
 
-        return $this->$functionName($this->model->getSchema());
+        return $this->$functionName($this->model->getSchema(), $id);
 
     }
 
@@ -164,13 +164,24 @@ class FormBuilder
         }
     }
 
-    private function updateForm($fields)
+    private function updateForm($fields, $id)
     {
-        return $fields;
+        $formDefinitions = $this->model->getFormDefinitions();
+        $formLabels = $this->model->getLabelDefinitions();
+        if(is_null($id)){
+            return "ID can't be empty on Update Form Types";
+        }
+        $formData = $this->model->find($id);
+
+        return view('abh/formbuilder::partials/update')->with('fields',$fields)->with('data',$formData)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method);
+
     }
 
-    private function createForm($fields)
+    private function createForm($fields, $id)
     {
-        return $fields;
+        $formDefinitions = $this->model->getFormDefinitions();
+        $formLabels = $this->model->getLabelDefinitions();
+
+        return view('abh/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method);
     }
 }

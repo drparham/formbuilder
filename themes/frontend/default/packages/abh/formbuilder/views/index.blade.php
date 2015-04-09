@@ -28,7 +28,7 @@
 
             <h2>Headline</h2>
 
-            <p>{{FormBuilder::buildForm('Abh\Formbuilder\Models\User', 'POST', '/', 'create')}}</p>
+            {!! FormBuilder::buildForm('Abh\Formbuilder\Models\User', 'POST', '/', 'create') !!}
 
         </div>
 
