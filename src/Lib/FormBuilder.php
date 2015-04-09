@@ -42,7 +42,9 @@ class FormBuilder
         $this->setAction($action);
         $this->setType($type);
 
-        return $this->model->getSchema();
+        $functionName = $this->type.'Form';
+
+        return $this->$functionName($this->model->getSchema());
 
     }
 
@@ -160,5 +162,15 @@ class FormBuilder
         }else {
             return false;
         }
+    }
+
+    private function updateForm($fields)
+    {
+        return $fields;
+    }
+
+    private function createForm($fields)
+    {
+        return $fields;
     }
 }
