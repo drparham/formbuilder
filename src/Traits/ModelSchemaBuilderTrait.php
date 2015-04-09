@@ -22,9 +22,14 @@ Trait ModelSchemaBuilderTrait {
     {
         $i = 0;
         foreach($fields as $field){
+
+            $parts = explode("(",$field->Type);
+            $field->Type = $parts['0'];
+
             if (in_array($field->Field, $this->skipFields)) {
                 unset($fields[$i]);
             }
+
             $i++;
         }
         return $fields;

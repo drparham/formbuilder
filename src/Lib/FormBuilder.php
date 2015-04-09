@@ -4,6 +4,10 @@
  * Class FormHandler
  * @package Abh\Formbuilder\Handlers
  */
+/**
+ * Class FormBuilder
+ * @package Abh\Formbuilder\Lib
+ */
 class FormBuilder
 {
     /**
@@ -164,6 +168,11 @@ class FormBuilder
         }
     }
 
+    /**
+     * @param $fields
+     * @param $id
+     * @return string
+     */
     private function updateForm($fields, $id)
     {
         $formDefinitions = $this->model->getFormDefinitions();
@@ -171,17 +180,30 @@ class FormBuilder
         if(is_null($id)){
             return "ID can't be empty on Update Form Types";
         }
+
         $formData = $this->model->find($id);
 
-        return view('abh/formbuilder::partials/update')->with('fields',$fields)->with('data',$formData)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method);
+        foreach ($fields as $key => $field) {
+            if($field->Field == "password" ) {
+                unset($fields[$key]);
+                break;
+            }
+        }
+
+        return view('abh/formbuilder::partials/update')->with('fields',$fields)->with('data',$formData)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
 
     }
 
+    /**
+     * @param $fields
+     * @param $id
+     * @return string
+     */
     private function createForm($fields, $id)
     {
         $formDefinitions = $this->model->getFormDefinitions();
         $formLabels = $this->model->getLabelDefinitions();
 
-        return view('abh/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method);
+        return view('abh/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
     }
 }

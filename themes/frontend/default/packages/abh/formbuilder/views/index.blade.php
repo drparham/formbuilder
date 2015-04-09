@@ -28,7 +28,6 @@
 
             <h2>Headline</h2>
 
-            {!! FormBuilder::buildForm('Abh\Formbuilder\Models\User', 'POST', '/', 'create') !!}
 
         </div>
 
@@ -38,6 +37,10 @@
 
 {{-- Page content --}}
 @section('page')
+
+    <div class="featurette featurette--left">
+        {!! FormBuilder::buildForm('Abh\Formbuilder\Models\User', 'POST', '/', 'update',1) !!}
+    </div>
 
     <!-- Featurette -->
     <div class="featurette featurette--left">
