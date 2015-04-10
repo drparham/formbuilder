@@ -1,5 +1,5 @@
 {
-	"name": "abh/formbuilder",
+	"name": "pta/formbuilder",
 	"type": "platform-extension",
 	"description": "Automatically generate form definitions from SQL Schema",
 	"authors": [
