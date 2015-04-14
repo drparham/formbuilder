@@ -11,7 +11,11 @@
 	"repositories": [
 		{
 			"type": "composer",
-			"url": "http://packages.anointedbrotherhood.com"
+			"url": "http://packages.packageteamalliance.com"
+		},
+		{
+		  "type": "composer",
+		  "url": "http://packages.cartalyst.com"
 		}
 	],
 	"require": {
@@ -26,7 +30,7 @@
 			"database/seeds"
 		],
 		"psr-4": {
-			"Abh\\Formbuilder\\": "src/"
+			"Pta\\Formbuilder\\": "src/"
 		}
 	},
 	"minimum-stability": "dev",
