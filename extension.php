@@ -32,7 +32,7 @@ return [
 	|
 	*/
 
-	'slug' => 'abh/formbuilder',
+	'slug' => 'pta/formbuilder',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ return [
 	*/
 
 	'providers' => [
-		'Abh\Formbuilder\Providers\FormBuilderServiceProvider',
+		'pta\Formbuilder\Providers\FormBuilderServiceProvider',
 	],
 
 	/*
@@ -144,7 +144,7 @@ return [
 	{
 		Route::group([
 			'prefix'    => 'formbuilder',
-			'namespace' => 'Abh\Formbuilder\Controllers\Frontend',
+			'namespace' => 'pta\Formbuilder\Controllers\Frontend',
 		], function()
 		{
 			Route::get('/' , ['as' => 'formbuilder.all', 'uses' => 'FormBuilderController@index']);
@@ -250,7 +250,7 @@ return [
 		'admin' => [
 
 			[
-				'slug'  => 'admin-abh-formbuilder',
+				'slug'  => 'admin-pta-formbuilder',
 				'name'  => 'Formbuilder',
 				'class' => 'fa fa-circle-o',
 				'uri'   => 'formbuilder',

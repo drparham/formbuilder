@@ -1,12 +1,8 @@
-<?php namespace Abh\Formbuilder\Lib;
+<?php namespace Pta\Formbuilder\Lib;
 
 /**
  * Class FormHandler
- * @package Abh\Formbuilder\Handlers
- */
-/**
- * Class FormBuilder
- * @package Abh\Formbuilder\Lib
+ * @package Pta\Formbuilder\Handlers
  */
 class FormBuilder
 {
@@ -158,7 +154,7 @@ class FormBuilder
         $traits = class_uses($model);
         $hasTrait = false;
         foreach($traits as $trait){
-            if ($trait === 'Abh\Formbuilder\Traits\ModelSchemaBuilderTrait') {
+            if ($trait === 'Pta\Formbuilder\Traits\ModelSchemaBuilderTrait') {
 
                 $hasTrait = true;
             }
@@ -192,7 +188,7 @@ class FormBuilder
             }
         }
 
-        return view('abh/formbuilder::partials/update')->with('fields',$fields)->with('data',$formData)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
+        return view('pta/formbuilder::partials/update')->with('fields',$fields)->with('data',$formData)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
 
     }
 
@@ -213,6 +209,6 @@ class FormBuilder
             }
         }
 
-        return view('abh/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
+        return view('pta/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
     }
 }

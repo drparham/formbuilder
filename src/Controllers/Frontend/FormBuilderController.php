@@ -1,4 +1,4 @@
-<?php namespace Abh\Formbuilder\Controllers\Frontend;
+<?php namespace Pta\Formbuilder\Controllers\Frontend;
 
 class FormBuilderController extends \Platform\Foundation\Controllers\Controller {
 
@@ -9,7 +9,7 @@ class FormBuilderController extends \Platform\Foundation\Controllers\Controller 
 	 */
 	public function index()
 	{
-		return view('abh/formbuilder::index');
+		return view('pta/formbuilder::index');
 		//return "Hello World";
 	}
 

@@ -1,6 +1,6 @@
-<?php namespace Abh\Formbuilder\Providers;
+<?php namespace Pta\Formbuilder\Providers;
 
-use Abh\Formbuilder\Lib\FormBuilder;
+use Pta\Formbuilder\Lib\FormBuilder;
 use Cartalyst\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
@@ -22,7 +22,7 @@ class FormBuilderServiceProvider extends ServiceProvider
     public function register()
     {
         // Register the Form Builder
-        $this->bindIf('abh.formbuilder.lib.formbuilder', 'Abh\Formbuilder\Lib\FormBuilder');
+        $this->bindIf('pta.formbuilder.lib.formbuilder', 'Pta\Formbuilder\Lib\FormBuilder');
 
         $this->app['FormBuilder'] = $this->app->share(function($app)
         {
@@ -30,7 +30,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         });
 
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('FormBuilder', 'Abh\Formbuilder\Facades\FormBuilder');
+        $loader->alias('FormBuilder', 'Pta\Formbuilder\Facades\FormBuilder');
 
     }
 

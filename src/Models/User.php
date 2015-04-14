@@ -1,7 +1,7 @@
-<?php namespace Abh\Formbuilder\Models;
+<?php namespace Pta\Formbuilder\Models;
 
 use Platform\Users\Models\User as ParentUser;
-use Abh\Formbuilder\Traits\ModelSchemaBuilderTrait;
+use Pta\Formbuilder\Traits\ModelSchemaBuilderTrait;
 
 
 class User extends ParentUser

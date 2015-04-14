@@ -1,4 +1,4 @@
-<?php namespace Abh\Formbuilder\Facades;
+<?php namespace Pta\Formbuilder\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
