@@ -122,7 +122,7 @@ return [
 	*/
 
 	'providers' => [
-		'pta\Formbuilder\Providers\FormBuilderServiceProvider',
+		'Pta\Formbuilder\Providers\FormBuilderServiceProvider',
 	],
 
 	/*
