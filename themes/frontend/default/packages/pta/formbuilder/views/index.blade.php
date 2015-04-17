@@ -39,7 +39,7 @@
 @section('page')
 
     <div class="featurette featurette--left">
-        {!! FormBuilder::buildForm('Abh\Formbuilder\Models\User', 'POST', '/', 'update',1) !!}
+        {!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', '/', 'create') !!}
     </div>
 
     <!-- Featurette -->

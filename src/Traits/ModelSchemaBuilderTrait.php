@@ -1,4 +1,4 @@
-<?php namespace Abh\Formbuilder\Traits;
+<?php namespace Pta\Formbuilder\Traits;
 
 
 Trait ModelSchemaBuilderTrait {
