@@ -1,16 +1,37 @@
 <?php namespace Pta\Formbuilder\Traits;
 
 
+/**
+ * Class ModelSchemaBuilderTrait
+ * @package Pta\Formbuilder\Traits
+ */
 Trait ModelSchemaBuilderTrait {
 
+    /**
+     * @var array
+     */
     protected $defaultFields = array('created_at', 'deleted_at', 'active', 'updated_at','permissions', 'last_login', 'password_date','remember_token','customer_id');
+    /**
+     * @var array
+     */
     protected $defaultInputs = array('varchar'=>'text','int'=>'text','date'=>'datepicker','tinyint'=>'checkbox', 'text'=>'textarea');
+    /**
+     * @var array
+     */
     protected $defaultLabels = array('email'=>'Email Address', 'email2'=>'Secondary Email Address', 'first_name'=>'First Name', 'last_name'=>'Last  Name', 'username'=>'Username', 'password'=>'Password', 'middle_initial'=>'Middle Initial', 'gender'=>'Gender', 'address1'=>'Address','address'=>'Address','address2'=>'Address Continued','city'=>'City','state'=>'State','zip'=>'Zip Code','country'=>'Country','phone'=>'Phone Number','fax'=>'Fax Number','dob'=>'Date of Birth','tos'=>'Terms of Service');
 
+    //$skipFields COULD be declared in the model using this trait
+    //$formInputs COULD be declared in the model using this trait
+    //$formLabels COULD be declared in the model using this trait
+    //${column_name}Definition Could be Declared to override default field/labels/input/ and add relation ships.
+
+    /**
+     * @return mixed
+     */
     public function getSchema()
     {
 
-        if(!isset($skipFields) ){
+        if(!isset($this->skipFields) ){
            $this->skipFields = $this->defaultFields;
         }
         $fields = \DB::select(\DB::raw("DESCRIBE ".$this->table));
@@ -18,6 +39,10 @@ Trait ModelSchemaBuilderTrait {
         return $this->cleanFields($fields);
     }
 
+    /**
+     * @param $fields
+     * @return mixed
+     */
     protected function cleanFields($fields)
     {
         $i = 0;
@@ -35,23 +60,40 @@ Trait ModelSchemaBuilderTrait {
         return $fields;
     }
 
+    /**
+     * @return array
+     */
     public function getFormDefinitions()
     {
-        if(!isset($formInputs) ){
+        if(!isset($this->formInputs) ){
             $this->formInputs = $this->defaultInputs;
         }
 
         return $this->formInputs;
     }
 
+    /**
+     * @return array
+     */
     public function getLabelDefinitions()
     {
-        if(!isset($formLabels) ){
+        if(!isset($this->formLabels) ){
             $this->formLabels = $this->defaultLabels;
         }
 
         return $this->formLabels;
     }
+
+    public function checkFieldDefinition($column_name)
+    {
+        if(method_exists($this,$column_name)){
+            return $this->{$column_name}();
+        }
+        return false;
+    }
+
+    //abstract public function setFields(array $structure);
+
 
 
 }

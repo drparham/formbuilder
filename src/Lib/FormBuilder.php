@@ -157,6 +157,7 @@ class FormBuilder
             if ($trait === 'Pta\Formbuilder\Traits\ModelSchemaBuilderTrait') {
 
                 $hasTrait = true;
+                break;
             }
         }
         if($hasTrait){
