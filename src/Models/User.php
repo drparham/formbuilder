@@ -3,7 +3,7 @@
 use Platform\Users\Models\User as ParentUser;
 use Pta\Coursemanagement\Models\School;
 use Pta\Formbuilder\Traits\ModelSchemaBuilderTrait;
-use Pta\FormBuilder\Lib\Fields\SelectField;
+use Pta\Formbuilder\Lib\Fields\SelectField;
 
 class User extends ParentUser
 {
@@ -16,7 +16,7 @@ class User extends ParentUser
 
     public function school_id()
     {
-        return new SelectField(new School, 'id', 'first_name');
+        return new SelectField(new School, 'id', 'name');
     }
 
 }

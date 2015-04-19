@@ -202,14 +202,20 @@ class FormBuilder
     {
         $formDefinitions = $this->model->getFormDefinitions();
         $formLabels = $this->model->getLabelDefinitions();
-
+        $form = array();
         foreach ($fields as $key => $field) {
             if($field->Field == "id" ) {
                 unset($fields[$key]);
-                break;
+            }
+            if($this->model->checkFieldDefinition($field->Field)){
+                $fieldDef = $this->model->checkFieldDefinition($field->Field);
+                $form[] = $fieldDef->getFormat($field, $formLabels);
+            }else {
+                $fieldDef = $this->model->fieldDefinition($field);
+                $form[] = $fieldDef->getFormat($field, $formLabels);
             }
         }
 
-        return view('pta/formbuilder::partials/create')->with('fields',$fields)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
+        return view('pta/formbuilder::partials/create')->with('form',$form)->with('action',$this->action)->with('method',$this->method)->render();
     }
 }

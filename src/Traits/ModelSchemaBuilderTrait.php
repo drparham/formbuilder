@@ -1,6 +1,5 @@
 <?php namespace Pta\Formbuilder\Traits;
 
-
 /**
  * Class ModelSchemaBuilderTrait
  * @package Pta\Formbuilder\Traits
@@ -14,11 +13,11 @@ Trait ModelSchemaBuilderTrait {
     /**
      * @var array
      */
-    protected $defaultInputs = array('varchar'=>'text','int'=>'text','date'=>'datepicker','tinyint'=>'checkbox', 'text'=>'textarea');
+    protected $defaultInputs = array('varchar'=>'Input','int'=>'Input','date'=>'datepicker','tinyint'=>'CheckBox', 'text'=>'TextArea');
     /**
      * @var array
      */
-    protected $defaultLabels = array('email'=>'Email Address', 'email2'=>'Secondary Email Address', 'first_name'=>'First Name', 'last_name'=>'Last  Name', 'username'=>'Username', 'password'=>'Password', 'middle_initial'=>'Middle Initial', 'gender'=>'Gender', 'address1'=>'Address','address'=>'Address','address2'=>'Address Continued','city'=>'City','state'=>'State','zip'=>'Zip Code','country'=>'Country','phone'=>'Phone Number','fax'=>'Fax Number','dob'=>'Date of Birth','tos'=>'Terms of Service');
+    protected $defaultLabels = array('email'=>'Email Address', 'email2'=>'Secondary Email Address', 'first_name'=>'First Name', 'last_name'=>'Last Name', 'username'=>'Username', 'password'=>'Password', 'middle_initial'=>'Middle Initial', 'gender'=>'Gender', 'address1'=>'Address','address'=>'Address','address2'=>'Address Continued','city'=>'City','state'=>'State','zip'=>'Zip Code','country'=>'Country','phone'=>'Phone Number','fax'=>'Fax Number','dob'=>'Date of Birth','tos'=>'Terms of Service');
 
     //$skipFields COULD be declared in the model using this trait
     //$formInputs COULD be declared in the model using this trait
@@ -86,10 +85,24 @@ Trait ModelSchemaBuilderTrait {
 
     public function checkFieldDefinition($column_name)
     {
+        //dd($column_name);
         if(method_exists($this,$column_name)){
             return $this->{$column_name}();
         }
         return false;
+    }
+
+    public function fieldDefinition($field)
+    {
+        if(in_array($field->Type, $this->defaultInputs)){
+            $type = $this->defaultInputs[$field->Type];
+        }else {
+            $type = "Input";
+        }
+
+        $classField = "Pta\\Formbuilder\\Lib\\Fields\\".$type."Field";
+        $class = new $classField($this, 'id', 'name');
+        return $class;
     }
 
     //abstract public function setFields(array $structure);

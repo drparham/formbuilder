@@ -2,8 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class SelectField implements FieldInterface {
-
+class InputField implements FieldInterface{
     protected $model;
     protected $id;
     protected $name;
@@ -15,14 +14,12 @@ class SelectField implements FieldInterface {
         $this->name = $name;
     }
 
-    private function getData(){
-        return $this->model->get(array($this->id,$this->name));
-    }
+
 
     public function getFormat($field, $labels)
     {
-        $data = $this->getData();
-        return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->Field)->with('labels', $labels)->with('required',$field->Null)->render();
+
+        return view('pta/formbuilder::partials/fields/input')->with('field',$field->Field)->with('labels', $labels)->with('required',$field->Null)->render();
 
     }
 }

@@ -1,6 +1,10 @@
 <div class="form-group">
-    <label for="<?php echo $field->Field; ?>" class="col-sm-2 control-label"><?php if(isset($labels[$field->Field])){ echo $labels[$field->Field]; }else { echo $field->Field; } ?></label>
+    <label for="<?php echo $field; ?>" class="col-sm-2 control-label"><?php if(isset($labels[$field])){ echo $labels[$field]; }else { echo $field; } ?></label>
     <div class="col-sm-10">
-        <input type="{{ $types[$field->Type] }}" class="form-control" id="{{$field->Field}}" name="{{$field->Field}}" <?php if($field->Null=="NO") echo 'required';?> placeholder="{{$data[$field->Field]}}">
+        <select id="{{ $field }}" name="{{ $field }}" <?php if($required=="NO") echo 'required';?> >
+            @foreach($data as $option)
+            <option id="{{ $option->id }}">{{ $option->name }}</option>
+            @endforeach
+        </select>
     </div>
 </div>
