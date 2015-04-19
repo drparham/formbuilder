@@ -12,7 +12,7 @@ class User extends ParentUser
 
     protected $table = 'westcott.users';
 
-    protected $skipFields = array('created_at', 'deleted_at', 'active', 'updated_at','permissions', 'last_login', 'password_date','remember_token','customer_id','first_name');
+    protected $skipFields = array('created_at', 'deleted_at', 'active', 'updated_at','permissions', 'last_login', 'password_date','remember_token','customer_id');
 
     public function school_id()
     {

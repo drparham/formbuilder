@@ -206,7 +206,9 @@ class FormBuilder
         foreach ($fields as $key => $field) {
             if($field->Field == "id" ) {
                 unset($fields[$key]);
+                continue;
             }
+
             if($this->model->checkFieldDefinition($field->Field)){
                 $fieldDef = $this->model->checkFieldDefinition($field->Field);
                 $form[] = $fieldDef->getFormat($field, $formLabels);

@@ -13,7 +13,7 @@ Trait ModelSchemaBuilderTrait {
     /**
      * @var array
      */
-    protected $defaultInputs = array('varchar'=>'Input','int'=>'Input','date'=>'datepicker','tinyint'=>'CheckBox', 'text'=>'TextArea');
+    protected $defaultInputs = array('Hidden'=>'hidden', 'Varchar'=>'Input','Int'=>'Input','Date'=>'datepicker','Tinyint'=>'CheckBox', 'Text'=>'TextArea');
     /**
      * @var array
      */

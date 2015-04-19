@@ -4,6 +4,5 @@ use Illuminate\Database\Eloquent\Model;
 
 interface FieldInterface {
 
-    public function __construct(Model $model, $id, $name);
     public function getFormat($field, $labels);
 }
