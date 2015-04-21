@@ -1,23 +1,18 @@
 <?php namespace Pta\Formbuilder\Lib\Fields;
 
-use Illuminate\Database\Eloquent\Model;
-
-class CheckBoxFiel implements FieldInterface{
-    protected $model;
-    protected $id;
-    protected $name;
-
-    public function __construct(Model $model, $id, $name)
-    {
-        $this->model = $model;
-        $this->id = $id;
-        $this->name = $name;
-    }
-
-    private function getData(){
-        return $this->model->get(array($this->id,$this->name));
-    }
-
+/**
+ * Class CheckBoxField Implements the FieldInterface, and returns a properly formed
+ * Checkbox Form field
+ * @package Pta\Formbuilder\Lib\Fields
+ */
+class CheckBoxField implements FieldInterface
+{
+    /**
+     * Returns a Properly formatted Partial View of a CheckBox Field
+     * @param $field
+     * @param $labels
+     * @return Illuminate\View\View
+     */
     public function getFormat($field, $labels)
     {
         $data = $this->getData();

@@ -2,33 +2,50 @@
 
 /**
  * Class FormHandler
+ * This Class uses the ModelSchemaBuilderTrait on your Models to
+ * Build Dynamically created Forms based on your Model Schema's and customization options.
  * @package Pta\Formbuilder\Handlers
  */
 class FormBuilder
 {
     /**
+     * This array is a list of all possible HTTP Methods one could use to submit a form.
+     * Default is Post.
      * @var array
      */
     protected $methods = array('post', 'get', 'put', 'patch');
+
     /**
+     * Default HTTP Method for submit.
      * @var string
      */
     protected $method = 'post';
+
     /**
+     * Form Action, or location to submit your Form to.
+     * Default is / or same location as form.
      * @var string
      */
     protected $action = '/';
+
     /**
+     * The Eloquent Model to use, should be full namespace.
      * @var Object
      */
     protected $model;
+
     /**
+     * This is the Type of Form
+     * Can be either create, or update.
      * @var string
      */
-    protected $type; //create or update
+    protected $type;
 
 
     /**
+     * BuildForm is the primary method called to build out a Form in a View
+     * Here we collect default values, then pass the values to be validated
+     * before attempting to build out the form
      * @param $model
      * @param $method
      * @param $action
@@ -42,6 +59,7 @@ class FormBuilder
         $this->setAction($action);
         $this->setType($type);
 
+        //Determine method name based on Form Type
         $functionName = $this->type.'Form';
 
         return $this->$functionName($this->model->getSchema(), $id);
@@ -49,10 +67,11 @@ class FormBuilder
     }
 
     /**
+     * This Method sets the HTTP Method, and makes sure it's a valid Method
      * @param string $method
      * @return string
      */
-    public function setMethod($method = 'post')
+    private function setMethod($method = 'post')
     {
         $method = strtolower($method);
         if (in_array($method, $this->methods)) {
@@ -65,10 +84,11 @@ class FormBuilder
     }
 
     /**
+     * This Method sets the Submit Action, and makes sure it's a valid Action
      * @param string $action
      * @return bool|string
      */
-    public function setAction($action = '/')
+    private function setAction($action = '/')
     {
         if($action == '/') {
             $this->action = $action;
@@ -83,10 +103,11 @@ class FormBuilder
     }
 
     /**
+     * This Method makes sure the Model is the Model exists, and the Model extends Eloquent/Model
      * @param $model
      * @return string
      */
-    public function setModel($model)
+    private function setModel($model)
     {
         if($this->modelExists($model)){
             $this->model = new $model;
@@ -98,10 +119,11 @@ class FormBuilder
     }
 
     /**
+     * This Method determines if it's an Update or Create Form Type.
      * @param $type
      * @return string
      */
-    public function setType($type)
+    private function setType($type)
     {
         $type = strtolower($type);
         if($type=='update' || $type == 'create'){
@@ -113,6 +135,7 @@ class FormBuilder
     }
 
     /**
+     * This Method determines if the action submitted is an actual named route
      * @param $action
      * @return bool
      */
@@ -127,6 +150,7 @@ class FormBuilder
     }
 
     /**
+     * This Method determines if the Model exists and extends Eloquent/Model
      * @param $model
      * @return bool
      */
@@ -145,6 +169,7 @@ class FormBuilder
     }
 
     /**
+     * This Method determines if the Model Submitted is using the ModelSchemaBuilderTrait
      * @param $model
      * @return bool
      */
@@ -168,6 +193,8 @@ class FormBuilder
     }
 
     /**
+     * This method will create an Update Form and
+     * return the Partial view to the originating View
      * @param $fields
      * @param $id
      * @return string
@@ -194,6 +221,8 @@ class FormBuilder
     }
 
     /**
+     * This Method will create a Create Form and
+     * return the Partial View to the originating View
      * @param $fields
      * @param $id
      * @return string
