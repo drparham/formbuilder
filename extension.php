@@ -249,13 +249,13 @@ return [
 
 		'admin' => [
 
-			[
-				'slug'  => 'admin-pta-formbuilder',
-				'name'  => 'Formbuilder',
-				'class' => 'fa fa-circle-o',
-				'uri'   => 'formbuilder',
-				'regex' => '/:admin\/formbuilder/i',
-			],
+//			[
+//				'slug'  => 'admin-pta-formbuilder',
+//				'name'  => 'Formbuilder',
+//				'class' => 'fa fa-circle-o',
+//				'uri'   => 'formbuilder',
+//				'regex' => '/:admin\/formbuilder/i',
+//			],
 
 		],
 
