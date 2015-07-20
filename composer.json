@@ -1,6 +1,5 @@
 {
 	"name": "pta/formbuilder",
-	"type": "platform-extension",
 	"description": "Automatically generate form definitions from SQL Schema",
 	"authors": [
 		{
@@ -20,9 +19,8 @@
 	],
 	"require": {
 		"php": ">=5.4.0",
-		"cartalyst/composer-installers": "1.2.*",
 		"illuminate/support": "4.2.*",
-		"platform/foundation": "1.0.*"
+        "cartalyst/support": "1.1.*"
 	},
 	"autoload": {
 		"classmap": [
