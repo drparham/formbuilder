@@ -10,7 +10,9 @@ interface FieldInterface {
      * Return formatted Form Field
      * @param $field
      * @param $labels
+     * @param $fieldData
+     * @param $required
      * @return mixed
      */
-    public function getFormat($field, $labels);
+    public function getFormat($field, $labels, $fieldData = null, $required = false);
 }

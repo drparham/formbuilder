@@ -3,7 +3,15 @@
     <div class="col-sm-10">
         <select id="{{ $field }}" name="{{ $field }}" <?php if($required=="NO") echo 'required';?> >
             @foreach($data as $option)
-            <option id="{{ $option->id }}">{{ $option->name }}</option>
+                @if(isset($fieldData))
+                    @if($option->id == $fieldData)
+                        <option value="{{ $option->id }}" selected="selected">{{ $option->name }}</option>
+                    @else
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endif
+                @else
+                    <option value="{{ $option->id }}">{{ $option->name }}</option>
+                @endif
             @endforeach
         </select>
     </div>

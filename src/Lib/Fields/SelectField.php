@@ -55,12 +55,18 @@ class SelectField implements FieldInterface
      * This uses the data from getData to properly format a Select Form Field
      * @param $field
      * @param $labels
+     * @param $fieldData
+     * @param $required
      * @return Illuminate\View\View
      */
-    public function getFormat($field, $labels)
+    public function getFormat($field, $labels, $fieldData = null, $required = false)
     {
         $data = $this->getData();
-        return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->Field)->with('labels', $labels)->with('required',$field->Null)->render();
+
+        if(!is_null($fieldData)){
+            return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->Field)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->render();
+        }
+        return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->render();
 
     }
 }

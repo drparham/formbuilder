@@ -212,11 +212,29 @@ class FormBuilder
         foreach ($fields as $key => $field) {
             if($field->Field == "password" ) {
                 unset($fields[$key]);
-                break;
+                continue;
+            }else if($field->Field == 'id'){
+                $field->Type = "hidden";
+            }
+
+            if($this->model->checkFieldDefinition($field->Field)){
+                $fieldDef = $this->model->checkFieldDefinition($field->Field);
+                if($this->model->isFieldRequired($field->Field)){
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true);
+                }else {
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field});
+                }
+            }else {
+                $fieldDef = $this->model->fieldDefinition($field);
+                if($this->model->isFieldRequired($field->Field)){
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true);
+                }else {
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field});
+                }
             }
         }
 
-        return view('pta/formbuilder::partials/update')->with('fields',$fields)->with('data',$formData)->with('labels',$formLabels)->with('types',$formDefinitions)->with('action',$this->action)->with('method',$this->method)->render();
+        return view('pta/formbuilder::partials/update')->with('form',$form)->with('action',$this->action)->with('method',$this->method)->with('formData',$formData)->render();
 
     }
 
@@ -240,10 +258,18 @@ class FormBuilder
 
             if($this->model->checkFieldDefinition($field->Field)){
                 $fieldDef = $this->model->checkFieldDefinition($field->Field);
-                $form[] = $fieldDef->getFormat($field, $formLabels);
+                if($this->model->isFieldRequired($field->Field)){
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null, true);
+                }else {
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null);
+                }
             }else {
                 $fieldDef = $this->model->fieldDefinition($field);
-                $form[] = $fieldDef->getFormat($field, $formLabels);
+                if($this->model->isFieldRequired($field->Field)){
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null, true);
+                }else {
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null);
+                }
             }
         }
 

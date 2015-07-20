@@ -2,6 +2,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-8">
             <form class="form-horizontal" method="<?php echo $method; ?>" action="<?php echo $action ?>">
+                <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                 @foreach($form as $field)
                     {!! $field !!}
                 @endforeach

@@ -11,6 +11,6 @@ class FormBuilder extends Facade {
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'FormBuilder'; }
+    protected static function getFacadeAccessor() { return 'Pta\Formbuilder\Lib\FormBuilder'; }
 
 }

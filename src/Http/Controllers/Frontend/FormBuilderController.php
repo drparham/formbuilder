@@ -1,6 +1,8 @@
-<?php namespace Pta\Formbuilder\Controllers\Frontend;
+<?php namespace Pta\Formbuilder\Http\Controllers\Frontend;
 
-class FormBuilderController extends \Platform\Foundation\Controllers\Controller {
+use Pta\FormBuilder\Http\Controllers\Controller;
+
+class FormBuilderController extends Controller {
 
 	/**
 	 * Return the main view.

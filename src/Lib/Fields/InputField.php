@@ -10,10 +10,15 @@ class InputField implements FieldInterface{
      * Returns a Properly formatted Partial View of an Input Field
      * @param $field
      * @param $labels
+     * @param $
+     * @param $required
      * @return Illuminate\View\View
      */
-    public function getFormat($field, $labels)
+    public function getFormat($field, $labels, $fieldData = null, $required = false)
     {
-        return view('pta/formbuilder::partials/fields/input')->with('field',$field->Field)->with('labels', $labels)->with('required',$field->Null)->render();
+        if(!is_null($fieldData)){
+            return view('pta/formbuilder::partials/fields/input')->with('field',$field->Field)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->render();
+        }
+        return view('pta/formbuilder::partials/fields/input')->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->render();
     }
 }
