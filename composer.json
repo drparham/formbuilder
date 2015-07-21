@@ -24,7 +24,7 @@
 	"autoload": {
 		"classmap": [
 			"database/migrations",
-			"database/seeds",
+			"database/seeds"
 		],
 		"psr-4": {
 			"Pta\\Formbuilder\\": "src/"
