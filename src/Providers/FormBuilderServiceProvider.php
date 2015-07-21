@@ -13,10 +13,13 @@ class FormBuilderServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
         $this->registerConfig();
+        $this->registerMigrations();
         $this->registerTranslations();
         $this->registerViews();
         $this->bootExtensionRouting();
+
     }
 
     /**
@@ -46,7 +49,8 @@ class FormBuilderServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../../config/config.php' => config_path('formbuilder.php'),
-        ]);
+        ], 'config');
+
         $this->mergeConfigFrom(
             __DIR__.'/../../config/config.php', 'formbuilder'
         );
@@ -65,7 +69,7 @@ class FormBuilderServiceProvider extends ServiceProvider
 
         $this->publishes([
             $sourcePath => $viewPath
-        ]);
+        ], 'views');
 
         $this->loadViewsFrom([$viewPath, $sourcePath], 'pta/formbuilder');
 
@@ -79,12 +83,29 @@ class FormBuilderServiceProvider extends ServiceProvider
     public function registerTranslations()
     {
         $langPath = base_path('resources/lang/vendor/pta/lms');
+        $sourcePath = __DIR__ .'/../resources/lang';
 
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, 'pta/formbuilder');
-        } else {
-            $this->loadTranslationsFrom(__DIR__ .'/../resources/lang', 'pta/formbuilder');
-        }
+        $this->publishes([
+            $sourcePath => $langPath
+        ], 'translations');
+
+        $this->loadTranslationsFrom([$langPath, $sourcePath], 'pta/formbuilder');
+
+    }
+
+
+    public function registerMigrations()
+    {
+        $this->publishes([
+            __DIR__.'/../database/migrations/' => database_path('migrations')
+        ], 'migrations');
+    }
+
+    public function registerSeeds()
+    {
+        $this->publishes([
+            __DIR__.'/../database/seeds/' => database_path('seeds')
+        ], 'seeds');
     }
 
     /**
