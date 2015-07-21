@@ -103,7 +103,7 @@ class FormBuilder
     }
 
     /**
-     * This Method makes sure the Model is the Model exists, and the Model extends Eloquent/Model
+     * This Method makes sure the Model exists, and the Model extends Eloquent/Model
      * @param $model
      * @return string
      */

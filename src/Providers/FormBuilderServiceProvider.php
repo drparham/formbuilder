@@ -65,7 +65,7 @@ class FormBuilderServiceProvider extends ServiceProvider
     {
         $viewPath = base_path('resources/views/vendor/pta/formbuilder');
 
-        $sourcePath = __DIR__.'/../../resources/views';
+        $sourcePath = __DIR__.'/../../resources/view';
 
         $this->publishes([
             $sourcePath => $viewPath

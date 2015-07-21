@@ -1,6 +1,6 @@
 <?php namespace Pta\Formbuilder\Http\Controllers\Frontend;
 
-use Pta\FormBuilder\Http\Controllers\Controller;
+use Pta\Formbuilder\Http\Controllers\Controller;
 
 class FormBuilderController extends Controller {
 

@@ -1,5 +1,8 @@
 <?php namespace Pta\Formbuilder\Traits;
 
+use Pta\Formbuilder\Lib\Fields\StateSelectField;
+use Pta\Formbuilder\Lib\Fields\CountrySelectField;
+
 /**
  * Use this Trait in your Eloquent Models to allow the FormBuilder
  * Class to dynamically create Forms in your views to interact with your Models
@@ -21,7 +24,7 @@ Trait ModelSchemaBuilderTrait {
      * To override these values, create an array in your Model with the name of $formInputs
      * @var array
      */
-    protected $defaultInputs = array('Hidden'=>'hidden', 'Varchar'=>'Input','Int'=>'Input','Date'=>'datepicker','Tinyint'=>'CheckBox', 'Text'=>'TextArea');
+    protected $defaultInputs = array('hidden'=>'Hidden', 'varchar'=>'Input','int'=>'Input','date'=>'DateInput','tinyint'=>'CheckBox', 'Text'=>'TextArea');
 
     /**
      * Default Labels maps column names in your table to Labels.
@@ -30,6 +33,7 @@ Trait ModelSchemaBuilderTrait {
      */
     protected $defaultLabels = array('email'=>'Email Address', 'email2'=>'Secondary Email Address', 'first_name'=>'First Name', 'last_name'=>'Last Name', 'username'=>'Username', 'password'=>'Password', 'middle_initial'=>'Middle Initial', 'gender'=>'Gender', 'address1'=>'Address','address'=>'Address','address2'=>'Address Continued','city'=>'City','state'=>'State','zip'=>'Zip Code','country'=>'Country','phone'=>'Phone Number','fax'=>'Fax Number','dob'=>'Date of Birth','tos'=>'Terms of Service');
 
+    //protected $requiredFields = array() of required form fields.
     //public function $column_name() Could be Declared to override default field/labels/input/ and add relationships.
 
     /**
@@ -41,7 +45,7 @@ Trait ModelSchemaBuilderTrait {
     {
 
         if(!isset($this->skipFields) ){
-           $this->skipFields = $this->defaultFields;
+            $this->skipFields = $this->defaultFields;
         }
         $fields = \DB::select(\DB::raw("DESCRIBE ".$this->table));
 
@@ -60,9 +64,12 @@ Trait ModelSchemaBuilderTrait {
         foreach($fields as $field){
 
             $parts = explode("(",$field->Type);
-            $field->Type = $parts['0'];
+            $field->Type = strtolower($parts['0']);
 
-            if (in_array($field->Field, $this->skipFields)) {
+            if(isset($this->skipFields)){
+                $this->defaultFields = array_merge($this->defaultFields, $this->skipFields);
+            }
+            if (in_array($field->Field, $this->defaultFields)) {
                 unset($fields[$i]);
             }
 
@@ -78,11 +85,12 @@ Trait ModelSchemaBuilderTrait {
      */
     public function getFormDefinitions()
     {
-        if(!isset($this->formInputs) ){
-            $this->formInputs = $this->defaultInputs;
+        if(isset($this->formInputs) ){
+            $this->defaultInputs = array_merge($this->defaultInputs, $this->$this->formInputs);
+
         }
 
-        return $this->formInputs;
+        return $this->defaultInputs;
     }
 
     /**
@@ -92,11 +100,11 @@ Trait ModelSchemaBuilderTrait {
      */
     public function getLabelDefinitions()
     {
-        if(!isset($this->formLabels) ){
-            $this->formLabels = $this->defaultLabels;
+        if(isset($this->formLabels) ){
+            $this->defaultLabels = array_merge($this->defaultLabels, $this->formLabels);
         }
 
-        return $this->formLabels;
+        return $this->defaultLabels;
     }
 
     /**
@@ -114,9 +122,19 @@ Trait ModelSchemaBuilderTrait {
         return false;
     }
 
+    public function isFieldRequired($field)
+    {
+
+        if(isset($this->requiredFields)){
+            if(in_array($field, $this->requiredFields)){
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Field Definition is the default method to catch all column_names that have
-     * not been override. It determines the correct class based on
+     * not been overridden. It determines the correct class based on
      * field type, and instantiates the appropriate Class if it exists
      * to create the form field and returns that class. Otherwise return false.
      * @param $field
@@ -124,7 +142,8 @@ Trait ModelSchemaBuilderTrait {
      */
     public function fieldDefinition($field)
     {
-        if(in_array($field->Type, $this->defaultInputs)){
+
+        if(array_key_exists($field->Type, $this->defaultInputs)){
             $type = $this->defaultInputs[$field->Type];
         }else {
             $type = "Input";
@@ -138,5 +157,14 @@ Trait ModelSchemaBuilderTrait {
         return false;
     }
 
+    public function state()
+    {
+        return new StateSelectField();
+    }
+
+    public function country()
+    {
+        return new CountrySelectField();
+    }
 
 }

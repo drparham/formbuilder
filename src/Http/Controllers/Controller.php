@@ -1,6 +1,6 @@
 <?php
 
-namespace Pta\FormBuilder\Http\Controllers;
+namespace Pta\Formbuilder\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 

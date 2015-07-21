@@ -5,7 +5,7 @@ use Illuminate\Routing\Router;
 
 Route::group([
     'prefix'    => 'formbuilder',
-    'namespace' => 'Pta\Formbuilder\Controllers\Frontend',
+    'namespace' => 'Pta\Formbuilder\Http\Controllers\Frontend',
 ], function()
 {
     Route::get('/' , ['as' => 'formbuilder.all', 'uses' => 'FormBuilderController@index']);
