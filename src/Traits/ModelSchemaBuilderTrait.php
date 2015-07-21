@@ -24,7 +24,7 @@ Trait ModelSchemaBuilderTrait {
      * To override these values, create an array in your Model with the name of $formInputs
      * @var array
      */
-    protected $defaultInputs = array('hidden'=>'Hidden', 'varchar'=>'Input','int'=>'Input','date'=>'DateInput','tinyint'=>'CheckBox', 'Text'=>'TextArea');
+    protected $defaultInputs = array('hidden'=>'Hidden', 'varchar'=>'Input','int'=>'Input','date'=>'DateInput','tinyint'=>'CheckBox', 'text'=>'Text');
 
     /**
      * Default Labels maps column names in your table to Labels.

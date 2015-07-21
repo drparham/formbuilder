@@ -1,16 +1,16 @@
 <?php namespace Pta\Formbuilder\Lib\Fields;
 
 /**
- * Class InputField implements Field Interface and Formats an Input Form Field
+ * Class InputField implements Field Interface and Formats a Text Form Field
  * @package Pta\Formbuilder\Lib\Fields
  */
 class TextField implements FieldInterface{
 
     /**
-     * Returns a Properly formatted Partial View of an Input Field
+     * Returns a Properly formatted Partial View of a Text Field
      * @param $field
      * @param $labels
-     * @param $
+     * @param $fieldData
      * @param $required
      * @return Illuminate\View\View
      */

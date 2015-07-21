@@ -24,19 +24,12 @@
 	"autoload": {
 		"classmap": [
 			"database/migrations",
-			"database/seeds"
+			"database/seeds",
 		],
 		"psr-4": {
 			"Pta\\Formbuilder\\": "src/"
 		}
 	},
-    "scripts": {
-      "post-install-cmd": [
-         "php artisan vendor:publish --provider='Vendor\\Pta\\Formbuilder\\Src\\Providers\\FormBuilderServiceProvider' --tag='config'",
-         "php artisan vendor:publish --provider='Vendor\\Pta\\Formbuilder\\Src\\Providers\\FormBuilderServiceProvider' --tag='migrations'",
-         "php artisan vendor:publish --provider='Vendor\\Pta\\Formbuilder\\Src\\Providers\\FormBuilderServiceProvider' --tag='seeds'"
-      ]
-    },
 	"minimum-stability": "dev",
 	"prefer-stable": true
 }
