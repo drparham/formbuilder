@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="<?php echo $method; ?>" action="<?php echo $action ?>">
+<form class="form-horizontal" method="<?php echo $method; ?>" action="{{ route($action, ['id' => $id]) }}">
     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
     <fieldset>
         @foreach($form as $field)

@@ -10,7 +10,7 @@
     <div class="form-group @if($errors->has($field) ) has-error @endif">
         <label for="<?php echo $field; ?>" class="col-md-3 control-label">{{ trans($trans.'model.general.'.$field) }}</label>
         <div class="col-md-9">
-            <input type="text" class="form-control" id="{{$field}}" name="{{$field}}" <?php if($required=="NO") echo 'required';?> placeholder="{{ trans($trans.'model.general.'.$field) }}" value="{{ Input::old($field, $fieldData) }}">
+            <input type="text" class="form-control" id="{{$field}}" name="{{$field}}" <?php if($required=="NO") echo 'required';?> placeholder="{{ trans($trans.'model.general.'.$field) }}" value="<?php if(isset($fieldData)){ echo $fieldData; }?>">
             <span class="help-block">{{$errors->first($field)}}</span>
         </div>
     </div>

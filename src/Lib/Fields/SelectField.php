@@ -41,12 +41,12 @@ class SelectField implements FieldInterface
     }
 
     /**
-     * Get Data pulls data from the Model for the two columns only
+     * GetData pulls active data from the Model for the two columns only
      * @return mixed
      */
     private function getData(){
         if(is_subclass_of($this->model, 'Illuminate\Database\Eloquent\Model')){
-            return $this->model->get(array($this->id,$this->name));
+            return $this->model->where('active',1)->get(array($this->id,$this->name));
         }
         return false;
     }
