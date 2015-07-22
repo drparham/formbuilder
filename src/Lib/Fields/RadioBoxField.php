@@ -21,14 +21,15 @@ class RadioBoxField implements FieldInterface
      * @param $labels
      * @param $fieldData
      * @param $required
+     * @param $trans
      * @return Illuminate\View\View
      */
-    public function getFormat($field, $labels, $fieldData = null, $required = false)
+    public function getFormat($field, $labels, $fieldData = null, $required = false, $trans = null)
     {
         if($this->inline){
-            return view('pta/formbuilder::partials/fields/radio')->with('data',$this->data)->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->render();
+            return view('pta/formbuilder::partials/fields/radio')->with('data',$this->data)->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
         }else {
-            return view('pta/formbuilder::partials/fields/inline-radio')->with('data',$this->data)->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->render();
+            return view('pta/formbuilder::partials/fields/inline-radio')->with('data',$this->data)->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
         }
     }
 }

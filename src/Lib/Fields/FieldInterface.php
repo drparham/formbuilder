@@ -12,7 +12,8 @@ interface FieldInterface {
      * @param $labels
      * @param $fieldData
      * @param $required
+     * @param $trans
      * @return mixed
      */
-    public function getFormat($field, $labels, $fieldData = null, $required = false);
+    public function getFormat($field, $labels, $fieldData = null, $required = false, $trans = null);
 }

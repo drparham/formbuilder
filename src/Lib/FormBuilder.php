@@ -42,6 +42,10 @@ class FormBuilder
     protected $type;
 
 
+    protected $trans = null;
+
+
+    protected $modelNamespace = null;
     /**
      * BuildForm is the primary method called to build out a Form in a View
      * Here we collect default values, then pass the values to be validated
@@ -50,14 +54,24 @@ class FormBuilder
      * @param $method
      * @param $action
      * @param $type
+     * @param $id
+     * @param $trans
      * @return mixed
      */
-    public function buildForm($model, $method, $action, $type, $id = null)
+    public function buildForm($model, $method, $action, $type, $id = null, $trans=null)
     {
         $this->setModel($model);
         $this->setMethod($method);
         $this->setAction($action);
         $this->setType($type);
+
+        if(!empty(\Config::get('config.entity.namespace'))){
+            $this->modelNamespace = \Config::get('config.entity.namespace');
+        }
+
+        if(!is_null($trans)){
+            $this->trans = $trans;
+        }
 
         //Determine method name based on Form Type
         $functionName = $this->type.'Form';
@@ -164,6 +178,14 @@ class FormBuilder
                 return false;
             }
         }else {
+            if(!is_null($this->modelNamespace)){
+                $model = $this->modelNamespace.'\\'.$model;
+                if(class_exists($model)){
+                    if(is_subclass_of($model, 'Illuminate\Database\Eloquent\Model')) {
+                        return $this->modelUsesTrait($model);
+                    }
+                }
+            }
             return false;
         }
     }
@@ -185,11 +207,8 @@ class FormBuilder
                 break;
             }
         }
-        if($hasTrait){
-            return true;
-        }else {
-            return false;
-        }
+
+        return $hasTrait;
     }
 
     /**
@@ -220,16 +239,16 @@ class FormBuilder
             if($this->model->checkFieldDefinition($field->Field)){
                 $fieldDef = $this->model->checkFieldDefinition($field->Field);
                 if($this->model->isFieldRequired($field->Field)){
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true, $this->trans);
                 }else {
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field});
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, false, $this->trans);
                 }
             }else {
                 $fieldDef = $this->model->fieldDefinition($field);
                 if($this->model->isFieldRequired($field->Field)){
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true, $this->trans);
                 }else {
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field});
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, false, $this->trans);
                 }
             }
         }
@@ -259,16 +278,16 @@ class FormBuilder
             if($this->model->checkFieldDefinition($field->Field)){
                 $fieldDef = $this->model->checkFieldDefinition($field->Field);
                 if($this->model->isFieldRequired($field->Field)){
-                    $form[] = $fieldDef->getFormat($field, $formLabels, null, true);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
-                    $form[] = $fieldDef->getFormat($field, $formLabels, null);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null, false, $this->trans);
                 }
             }else {
                 $fieldDef = $this->model->fieldDefinition($field);
                 if($this->model->isFieldRequired($field->Field)){
-                    $form[] = $fieldDef->getFormat($field, $formLabels, null, true);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
-                    $form[] = $fieldDef->getFormat($field, $formLabels, null);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, null, false, $this->trans);
                 }
             }
         }

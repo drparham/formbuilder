@@ -1,5 +1,8 @@
 <?php
 
 return [
-    'name' => 'FormBuilder'
+    'name' => 'FormBuilder',
+    'entity' => [
+        'namespace' => 'Modules\Lms\Src\Entities',
+    ],
 ];
