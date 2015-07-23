@@ -47,7 +47,11 @@ Trait ModelSchemaBuilderTrait {
         if(!isset($this->skipFields) ){
             $this->skipFields = $this->defaultFields;
         }
-        $fields = \DB::select(\DB::raw("DESCRIBE ".$this->table));
+        $table = $this->table;
+
+        $fields = \Cache::rememberForever('pta.formbuilder.describe.' . $table, function() use ($table) {
+            return \DB::select(\DB::raw("DESCRIBE ".$table));
+        });
 
         return $this->cleanFields($fields);
     }
