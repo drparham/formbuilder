@@ -44,6 +44,7 @@ class FormBuilder
 
     protected $trans = null;
 
+    public $message;
 
     protected $modelNamespace = null;
     /**
@@ -60,10 +61,19 @@ class FormBuilder
      */
     public function buildForm($model, $method, $action, $type, $id = null, $trans=null)
     {
-        $this->setModel($model);
-        $this->setMethod($method);
-        $this->setAction($action);
-        $this->setType($type);
+
+        if(!$this->setModel($model)){
+            return $this->message;
+        }
+        if(!$this->setMethod($method)){
+            return $this->message;
+        }
+        if(!$this->setAction($action)){
+            return $this->message;
+        }
+        if(!$this->setType($type)){
+            return $this->message;
+        }
 
         if(!empty(\Config::get('config.entity.namespace'))){
             $this->modelNamespace = \Config::get('config.entity.namespace');
@@ -92,7 +102,8 @@ class FormBuilder
             $this->method = $method;
             return $method;
         }else {
-            return "Unknown Method, should be either POST, GET, PUT, or PATCH";
+            $this->message ="Unknown Method, should be either POST, GET, PUT, or PATCH";
+            return false;
         }
 
     }
@@ -111,7 +122,8 @@ class FormBuilder
             $this->action = $action;
             return $action;
         }else {
-            return "Unknown Action. Action should be either / for self, or a working route name.";
+            $this->message = "Unknown Action. Action should be either / for self, or a working route name.";
+            return false;
         }
 
     }
@@ -123,11 +135,13 @@ class FormBuilder
      */
     private function setModel($model)
     {
+
         if($this->modelExists($model)){
             $this->model = new $model;
             return $this->model;
         }else {
-            return "Unknown Model ".$model.", Model should be a Class that extends Illuminate\\Database\\Eloquent\\Model ";
+            $this->message = "Unknown Model ".$model.", Model should be a Class that extends Illuminate\\Database\\Eloquent\\Model";
+            return false;
         }
 
     }
@@ -144,7 +158,8 @@ class FormBuilder
             $this->type = $type;
             return $type;
         }else {
-            return "Unknown Type. Type should be create or update";
+            $this->message = "Unknown Type. Type should be create or update";
+            return false;
         }
     }
 
@@ -170,6 +185,7 @@ class FormBuilder
      */
     private function modelExists($model)
     {
+
         if (class_exists($model)) {
 
             if (is_subclass_of($model, 'Illuminate\Database\Eloquent\Model')) {

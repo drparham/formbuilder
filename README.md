@@ -15,6 +15,12 @@ Or you can add the below to your composer.json file manually:
     }
 ```
 
+## Service Provider
+You will need to add `Pta\Formbuilder\Providers\FormBuilderServiceProvider::class,` to your provider array in app.php config.
+
+## Facade
+You will need to add `'FormBuilder'=> Pta\FormBuilder\Facades\FormBuilder::class,` to your Facades array in app.php config if you want to use the Facade in your views.
+
 # Usage
 
 To use the FormBuilder, simply add the `pta\formbuilder\src\Traits\ModelSchemaBuilderTrait` to your Model. In your view where you want to display a Form for your Model, simply type
@@ -25,11 +31,11 @@ Example:
  
    This Form will create a new User
 
-   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create') !!}`
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create', null, 'translation namespace') !!}`
    
    This Form will update User with an ID of 1
 
-   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1) !!}`
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1, 'translation namespace') !!}`
 
 The Form's are built using a series of Partial Views for each Input Type, and depending on if it's a create or update form.
 
