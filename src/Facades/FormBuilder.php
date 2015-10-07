@@ -2,9 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
-class FormBuilder extends Facade {
-
-
+class FormBuilder extends Facade
+{
 
     /**
      * Get the registered name of the component.
