@@ -33,7 +33,7 @@ class SelectField implements FieldInterface
      * @param $name
      * @param $getData Callback
      */
-    public function __construct(Model $model, $name,  $getData)
+    public function __construct($model, $name,  $getData)
     {
         $this->model = $model;
 
@@ -55,8 +55,8 @@ class SelectField implements FieldInterface
         $data = $this->getData;
         $data = $data();
 
-
-        //dd($data);
+//        dd($fieldData);
+//        dd($data);
 
         if(!is_null($fieldData)){
             return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('name',$this->name)->with('field',$field->Field)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
