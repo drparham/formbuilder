@@ -23,19 +23,21 @@ You will need to add `'FormBuilder'=> Pta\FormBuilder\Facades\FormBuilder::class
 
 # Usage
 
-To use the FormBuilder, simply add the `pta\formbuilder\src\Traits\ModelSchemaBuilderTrait` to your Model. In your view where you want to display a Form for your Model, simply type
+To use the FormBuilder, simply add the `pta\formbuilder\src\Traits\ModelSchemaBuilderTrait` to your Model. 
 
-   `{!! FormBuilder::buildForm('Namespace\To\Models\ModelName', 'Method', 'Named Route', 'FormType', ID) !!}`
+In your view where you want to display a Form for your Model, simply type
+
+   `{!! FormBuilder::buildForm('Namespace\To\Models\ModelName', 'Method', 'Named Route', 'FormType', ID, 'translation namespace') !!}`
 
 Example:
  
    This Form will create a new User
 
-   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create', null, 'translation namespace') !!}`
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create', null, 'Pta\Formbuilder\User::') !!}`
    
    This Form will update User with an ID of 1
 
-   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1, 'translation namespace') !!}`
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1, 'Pta\Formbuilder\User::') !!}`
 
 The Form's are built using a series of Partial Views for each Input Type, and depending on if it's a create or update form.
 
@@ -47,7 +49,7 @@ If you have a database field that needs some more customized mapping, you can ea
 
 An example of this would be a drop down. If for instance you have a relationship with another model, like a one to one, you would want to provide a select field for an Int database field. Typically the Int type will default to a regular Input field. 
 
-```
+```php-line-numbers
 public function school_id()
 {
     return new SelectField(new School, 'id', 'name');
@@ -60,7 +62,7 @@ The first parameter is a new instance of the model you want to use to populate t
 
 You can also pass a closure to a SelectField if you want to pass customized data to the select field, and not all of the data in "school" for instance above. 
 
-```
+```php-line-numbers
 public function department_id()
     {
         $department = new Department; //eloquent model
@@ -78,7 +80,29 @@ public function department_id()
 
 There is a default array of value mapping. It will map standard column names to standard labels. You can expand this list by declaring a `protected $formLabels` array in your model. 
 
-```protected $formLabels = array('email'=>'Email Address', 'email2'=>'Secondary Email Address', 'first_name'=>'First Name', 'last_name'=>'Last Name', 'username'=>'Username', 'password'=>'Password', 'middle_initial'=>'Middle Initial', 'gender'=>'Gender', 'address1'=>'Address','address'=>'Address','address2'=>'Address Continued','city'=>'City','state'=>'State','zip'=>'Zip Code','country'=>'Country','phone'=>'Phone Number','fax'=>'Fax Number','dob'=>'Date of Birth','tos'=>'Terms of Service');```
+```php-line-numbers
+protected $formLabels = [
+    'email'=>'Email Address', 
+    'email2'=>'Secondary Email Address', 
+    'first_name'=>'First Name', 
+    'last_name'=>'Last Name', 
+    'username'=>'Username', 
+    'password'=>'Password', 
+    'middle_initial'=>'Middle Initial', 
+    'gender'=>'Gender', 
+    'address1'=>'Address',
+    'address'=>'Address',
+    'address2'=>'Address Continued',
+    'city'=>'City',
+    'state'=>'State',
+    'zip'=>'Zip Code',
+    'country'=>'Country',
+    'phone'=>'Phone Number',
+    'fax'=>'Fax Number',
+    'dob'=>'Date of Birth',
+    'tos'=>'Terms of Service'
+];
+```
 
 When building out the form, the FormBuilder will check to see if this variable is declared, and if so it will use it over the default Labels array defined in the Trait. 
 
@@ -89,3 +113,7 @@ The $skipFields array, has default table columns that won't populate a form fiel
 The $formInputs array, has the default correlation to table field type to form type. For instance all TEXT fields in the table are assumed to be text area form fields. 
 
 This should allow you to customize the form layout as much as you want, or simply use the default values.
+
+### Form Fields 
+
+Form fields are built using partials using bootstrap. However, you can simply publish the views, and use which ever frontend framework you prefer.
