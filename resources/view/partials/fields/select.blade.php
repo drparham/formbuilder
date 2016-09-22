@@ -6,12 +6,12 @@
             @foreach($data as $option)
                 @if(isset($fieldData))
                     @if($option->id == $fieldData)
-                        <option value="{{ $option->id }}" selected="selected">{{ $option->name }}</option>
+                        <option value="{{ $option->id }}" selected="selected">{{ $option->{$name} }}</option>
                     @else
-                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                        <option value="{{ $option->id }}">{{ $option->{$name} }}</option>
                     @endif
                 @else
-                    <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    <option value="{{ $option->id }}">{{ $option->{$name} }}</option>
                 @endif
             @endforeach
         </select>
@@ -26,12 +26,12 @@
             @foreach($data as $option)
                 @if(isset($fieldData))
                     @if($option->id == $fieldData)
-                        <option value="{{ $option->id }}" selected="selected">{{ $option->name }}</option>
+                        <option value="{{ $option->id }}" selected="selected">{{ $option->{$name} }}</option>
                     @else
-                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                        <option value="{{ $option->id }}">{{ $option->{$name} }}</option>
                     @endif
                 @else
-                    <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    <option value="{{ $option->id }}">{{ $option->{$name} }}</option>
                 @endif
             @endforeach
         </select>
