@@ -41,6 +41,7 @@ class FormBuilder
      */
     protected $type;
 
+    protected $protected;
 
     protected $trans = null;
 
@@ -61,6 +62,11 @@ class FormBuilder
      */
     public function buildForm($model, $method, $action, $type, $id = null, $trans=null)
     {
+        if(!is_null(\Config('formbuilder.entity.namespace'))){
+            $this->modelNamespace = \Config('formbuilder.entity.namespace');
+        }
+
+        $this->protected = \Config('formbuilder.protected');
 
         if(!$this->setModel($model)){
             return $this->message;
@@ -73,10 +79,6 @@ class FormBuilder
         }
         if(!$this->setType($type)){
             return $this->message;
-        }
-
-        if(!empty(\Config::get('formbuilder.entity.namespace'))){
-            $this->modelNamespace = \Config::get('formbuilder.entity.namespace');
         }
 
         if(!is_null($trans)){
@@ -136,11 +138,11 @@ class FormBuilder
     private function setModel($model)
     {
 
-        if($this->modelExists($model)){
+        if($model = $this->modelExists($model)){
             $this->model = new $model;
             return $this->model;
         }else {
-            $this->message = "Unknown Model ".$model.", Model should be a Class that extends Illuminate\\Database\\Eloquent\\Model";
+            $this->message = "Unknown Model ".$model.", Model should be a Class that extends Pta\\Formbuilder\\Lib\\ModelSchemaBuilder";
             return false;
         }
 
@@ -188,43 +190,22 @@ class FormBuilder
 
         if (class_exists($model)) {
 
-            if (is_subclass_of($model, 'Illuminate\Database\Eloquent\Model')) {
-                return $this->modelUsesTrait($model);
+            if (is_subclass_of($model, 'Pta\\Formbuilder\\Lib\\ModelSchemaBuilder')) {
+                return $model;
             } else {
                 return false;
             }
         }else {
             if(!is_null($this->modelNamespace)){
-                $model = $this->modelNamespace.'\\'.$model;
+                $model = $this->modelNamespace.$model;
                 if(class_exists($model)){
-                    if(is_subclass_of($model, 'Illuminate\Database\Eloquent\Model')) {
-                        return $this->modelUsesTrait($model);
+                    if(is_subclass_of($model, 'Pta\\Formbuilder\\Lib\\ModelSchemaBuilder')) {
+                        return $model;
                     }
                 }
             }
             return false;
         }
-    }
-
-    /**
-     * This Method determines if the Model Submitted is using the ModelSchemaBuilderTrait
-     * @param $model
-     * @return bool
-     */
-    private function modelUsesTrait($model)
-    {
-
-        $traits = class_uses($model);
-        $hasTrait = false;
-        foreach($traits as $trait){
-            if ($trait === 'Pta\Formbuilder\Traits\ModelSchemaBuilderTrait') {
-
-                $hasTrait = true;
-                break;
-            }
-        }
-
-        return $hasTrait;
     }
 
     /**
@@ -291,8 +272,9 @@ class FormBuilder
                 continue;
             }
 
-            if($this->model->checkFieldDefinition($field->Field)){
-                $fieldDef = $this->model->checkFieldDefinition($field->Field);
+            if($fieldDef = $this->model->checkFieldDefinition($field->Field) && !in_array($field->Field, $this->protected)){
+                //$fieldDef = $this->model->checkFieldDefinition($field->Field);
+                dd($field->Field);
                 if($this->model->isFieldRequired($field->Field)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
