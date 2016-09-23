@@ -15,10 +15,10 @@ class FormBuilderServiceProvider extends ServiceProvider
     {
 
         $this->registerConfig();
-        $this->registerMigrations();
-        $this->registerTranslations();
+//        $this->registerMigrations();
+//        $this->registerTranslations();
         $this->registerViews();
-        $this->bootExtensionRouting();
+//        $this->bootExtensionRouting();
 
     }
 
@@ -35,7 +35,7 @@ class FormBuilderServiceProvider extends ServiceProvider
             return new FormBuilder();
         });
 
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+        $loader = AliasLoader::getInstance();
         $loader->alias('FormBuilder', 'Pta\Formbuilder\Facades\FormBuilder');
 
     }
