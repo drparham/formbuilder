@@ -30,6 +30,6 @@
 			"Pta\\Formbuilder\\": "src/"
 		}
 	},
-	"minimum-stability": "dist",
+	"minimum-stability": "dev",
 	"prefer-stable": true
 }
