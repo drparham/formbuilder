@@ -11,30 +11,20 @@ use Pta\Formbuilder\Lib\Fields\CountrySelectField;
  */
 Trait ModelSchemaBuilderTrait {
 
-    /**
-     * Default Fields sets what fields to ignore by default.
-     * To override these values, create an array in your Model with the name of $skipFields
-     * @var array
-     */
-    protected $defaultFields = array('created_at', 'deleted_at', 'active', 'updated_at','permissions', 'last_login', 'password_date','remember_token','customer_id');
+    protected $defaultFields = [];
 
-    /**
-     * Default Inputs Maps field types from the schema to form input types.
-     * Example: Varchar is a string, so defaults to Input etc.
-     * To override these values, create an array in your Model with the name of $formInputs
-     * @var array
-     */
-    protected $defaultInputs = array('hidden'=>'Hidden', 'varchar'=>'Input','int'=>'Input','date'=>'DateInput','tinyint'=>'CheckBox', 'text'=>'Text');
+    protected $defaultInputs = [];
 
-    /**
-     * Default Labels maps column names in your table to Labels.
-     * To override these values, create an array in your Model with the name of $formLabels
-     * @var array
-     */
-    protected $defaultLabels = array('email'=>'Email Address', 'email2'=>'Secondary Email Address', 'first_name'=>'First Name', 'last_name'=>'Last Name', 'username'=>'Username', 'password'=>'Password', 'middle_initial'=>'Middle Initial', 'gender'=>'Gender', 'address1'=>'Address','address'=>'Address','address2'=>'Address Continued','city'=>'City','state'=>'State','zip'=>'Zip Code','country'=>'Country','phone'=>'Phone Number','fax'=>'Fax Number','dob'=>'Date of Birth','tos'=>'Terms of Service');
+    protected $defaultLabels = [];
 
-    //protected $requiredFields = array() of required form fields.
-    //public function $column_name() Could be Declared to override default field/labels/input/ and add relationships.
+    public function __construct()
+    {
+        $this->defaultFields = \Config('formbuilder.fields');
+        $this->defaultInputs = \Config('formbuilder.inputs');
+        $this->defaultLabels = \Config('formbuilder.labels');
+        parent::__constuct();
+
+    }
 
     /**
      * Get Schema method retrieves the Table Schema of the Model using this Trait.

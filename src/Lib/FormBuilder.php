@@ -75,8 +75,8 @@ class FormBuilder
             return $this->message;
         }
 
-        if(!empty(\Config::get('config.entity.namespace'))){
-            $this->modelNamespace = \Config::get('config.entity.namespace');
+        if(!empty(\Config::get('formbuilder.entity.namespace'))){
+            $this->modelNamespace = \Config::get('formbuilder.entity.namespace');
         }
 
         if(!is_null($trans)){
