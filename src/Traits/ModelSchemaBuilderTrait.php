@@ -11,21 +11,6 @@ use Pta\Formbuilder\Lib\Fields\CountrySelectField;
  */
 Trait ModelSchemaBuilderTrait {
 
-    protected $defaultFields = [];
-
-    protected $defaultInputs = [];
-
-    protected $defaultLabels = [];
-
-    public function __construct()
-    {
-        $this->defaultFields = \Config('formbuilder.fields');
-        $this->defaultInputs = \Config('formbuilder.inputs');
-        $this->defaultLabels = \Config('formbuilder.labels');
-        parent::__constuct();
-
-    }
-
     /**
      * Get Schema method retrieves the Table Schema of the Model using this Trait.
      * It then passes the schema array to cleanFields
@@ -39,9 +24,7 @@ Trait ModelSchemaBuilderTrait {
         }
         $table = $this->table;
 
-        $fields = \Cache::rememberForever('pta.formbuilder.describe.' . $table, function() use ($table) {
-            return \DB::select(\DB::raw("DESCRIBE ".$table));
-        });
+        $fields = \DB::select(\DB::raw("DESCRIBE ".$table));
 
         return $this->cleanFields($fields);
     }
@@ -80,7 +63,7 @@ Trait ModelSchemaBuilderTrait {
     public function getFormDefinitions()
     {
         if(isset($this->formInputs) ){
-            $this->defaultInputs = array_merge($this->defaultInputs, $this->$this->formInputs);
+            $this->defaultInputs = array_merge($this->defaultInputs, $this->formInputs);
 
         }
 
