@@ -10,7 +10,7 @@
 	"repositories": [
 		{
 			"type": "composer",
-			"url": "http://packages.packageteamalliance.com"
+			"url": "https://pta.satislabs.com"
 		},
 		{
 		  "type": "composer",
@@ -22,14 +22,10 @@
         "cartalyst/support": "1.1.*"
 	},
 	"autoload": {
-		"classmap": [
-			"database/migrations",
-			"database/seeds"
-		],
 		"psr-4": {
 			"Pta\\Formbuilder\\": "src/"
 		}
 	},
-	"minimum-stability": "dist",
+	"minimum-stability": "dev",
 	"prefer-stable": true
 }
