@@ -272,9 +272,8 @@ class FormBuilder
                 continue;
             }
 
-            if($fieldDef = $this->model->checkFieldDefinition($field->Field) && !in_array($field->Field, $this->protected)){
-                //$fieldDef = $this->model->checkFieldDefinition($field->Field);
-                dd($field->Field);
+            if($this->model->checkFieldDefinition($field->Field) && !in_array($field->Field, $this->protected)){
+                $fieldDef = $this->model->checkFieldDefinition($field->Field);
                 if($this->model->isFieldRequired($field->Field)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
