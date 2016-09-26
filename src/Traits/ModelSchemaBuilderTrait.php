@@ -22,8 +22,7 @@ Trait ModelSchemaBuilderTrait {
         if(!isset($this->skipFields) ){
             $this->skipFields = $this->defaultFields;
         }
-        $table = $this->table;
-
+        $table = $this->getTable();
         $fields = \DB::select(\DB::raw("DESCRIBE ".$table));
 
         return $this->cleanFields($fields);
