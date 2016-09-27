@@ -92,8 +92,8 @@ Trait ModelSchemaBuilderTrait {
      */
     public function checkFieldDefinition($column_name)
     {
-        if(method_exists($this,$column_name)){
-            return $this->{$column_name}();
+        if(method_exists($this,'FB_'.$column_name)){
+            return $this->{'FB_'.$column_name}();
         }
         return false;
     }
