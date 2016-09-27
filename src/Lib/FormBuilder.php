@@ -253,7 +253,6 @@ class FormBuilder
         }
 
         return view('pta/formbuilder::partials/update')->with('form',$form)->with('action',$this->action)->with('method',$this->method)->with('formData',$formData)->with('id',$id)->render();
-
     }
 
     /**
