@@ -11,7 +11,7 @@ Or you can add the below to your composer.json file manually:
 
 ```
 "require": {
-        "pta/formbuilder": "0.1.*",
+        "pta/formbuilder": "0.2.*",
     }
 ```
 
@@ -155,54 +155,14 @@ In the config we also have an array that maps column types, to input types.
 
 Simply adjust this array or add new fields to it, to make this fit your implementation.
 
-### Protected Method names
-
-It's possible you have a column name, that is the same as a method that is already declared on the eloquent model. This option will ignore any method names that exist in the array.
-
-```
-    /*
-    |--------------------------------------------------------------------------
-    | Protected column names
-    |--------------------------------------------------------------------------
-    |
-    | This option lists all the methods that are already declared, that if you
-    | have a column name with the same name will cause errors if that method
-    | is loaded. These are also methods you shouldn't try and override,
-    | as it will cause errors with eloquent models
-    |
-    */
-    'protected' => [
-        'all',
-        'boot',
-        'observe',
-        'fill',
-        'create',
-        'query',
-        'on',
-        'fresh',
-        'load',
-        'with',
-        'append',
-        'destroy',
-        'delete',
-        'push',
-        'save',
-        'touches',
-        'touch',
-        'guard',
-        'unguard',
-        'requard',
-        'is',
-    ],
-```
 
 ### Further Customization
-If you have a database field that needs some more customized mapping, you can easily overload the default field type by simply declaring a a public method with the name of the column name you need to customize.
+If you have a database field that needs some more customized mapping, you can easily overload the default field type by simply declaring a a public method with the name of the column with `FB_` proceeding it. This will let FormBuilder know it's a FB Method.
 
 An example of this would be a drop down. If for instance you have a relationship with another model, like a one to one, you would want to provide a select field for an Int database field. Typically the Int type will default to a regular Input field. 
 
 ```
-public function school_id()
+public function FB_school_id()
 {
     return new SelectField(new School, 'id', 'name');
 }
@@ -215,7 +175,7 @@ The first parameter is a new instance of the model you want to use to populate t
 You can also pass a closure to a SelectField if you want to pass customized data to the select field, and not all of the data in "school" for instance above. 
 
 ```
-public function department_id()
+public function FB_department_id()
     {
         $department = new Department; 
         return new SelectField($department, 'name', function() use ($department) {
@@ -230,7 +190,7 @@ public function department_id()
 You can also pass a collection to the SelectField if you want to define static options for a select field.
 
 ```
-    public function active()
+    public function FB_active()
     {
         $collection = \collect([(object)['name' => 'No', 'id' => "0"],(object)['name'=>'Yes', 'id' => "1"]]);
         return new SelectField(null, 'name', function() use ($collection) {
