@@ -224,7 +224,9 @@ class FormBuilder
         }
 
         $formData = $this->model->find($id);
+        $fields = $this->model->getAddFields($fields);
 
+        $form = [];
         foreach ($fields as $key => $field) {
             if($field->Field == "password" ) {
                 unset($fields[$key]);
@@ -265,6 +267,8 @@ class FormBuilder
     {
         $formDefinitions = $this->model->getFormDefinitions();
         $formLabels = $this->model->getLabelDefinitions();
+        $fields = $this->model->getAddFields($fields);
+
         $form = array();
         foreach ($fields as $key => $field) {
             if($field->Field == "id" ) {

@@ -84,6 +84,23 @@ Trait ModelSchemaBuilderTrait {
     }
 
     /**
+     * getAddFields checks to see if the Model is adding
+     * fields to the array, if so returns the fields
+     * @return array
+     */
+    public function getAddFields($fields)
+    {
+        if(isset($this->addFields)){
+            foreach($this->addFields as $field){
+                $obj = new \stdClass();
+                $obj->Field = $field;
+                $fields[] = $obj;
+            }
+        }
+        return $fields;
+    }
+
+    /**
      * Check Field Definitions, checks to see if a method
      * has been created with the same name as the column_name passed In
      * If so, it returns the response from that method, if not it returns false.
