@@ -90,40 +90,4 @@ return [
         'customer_id',
         'all',
     ],
-    /*
-    |--------------------------------------------------------------------------
-    | Protected column names
-    |--------------------------------------------------------------------------
-    |
-    | This option lists all the methods that are already declared, that if you
-    | have a column name with the same name will cause errors if that method
-    | is loaded. These are also methods you shouldn't try and override,
-    | as it will cause errors with eloquent models
-    |
-    */
-    'protected' => [
-        'all',
-        'boot',
-        'observe',
-        'fill',
-        'create',
-        'query',
-        'on',
-        'fresh',
-        'load',
-        'with',
-        'append',
-        'destroy',
-        'delete',
-        'push',
-        'save',
-        'touches',
-        'touch',
-        'guard',
-        'unguard',
-        'requard',
-        'is',
-
-
-    ],
 ];
