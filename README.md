@@ -53,6 +53,22 @@ The form's HTML is based off of Bootstrap 3, and is completely customizable. Sim
 
 In the config file, we have several areas where we can adjust default behaviors. 
 
+### Defining NameSpace to your models
+
+The FormBuilder config allows you to define the NameSpace for your models:
+
+```
+'entity' => [
+        'namespace' => 'App\\',
+    ],
+```
+
+After you define your model's namespace in the config you can then do the following:
+
+   `{!! FormBuilder::buildForm('User', 'POST', 'User.Create', 'create', null, 'Pta\Formbuilder\User::') !!}`
+   
+If you have your models in multiple places for instance, multiple packages using FormBuilder, you can still define an fully qualified namespaced class name for the model you want to build a form off of.
+By default it will check to see if the model exists as passed in, if formbuilder can't find it, it will try using the NameSpace path + model name you passed in to find the model.
 
 ### Default Labels
 
@@ -170,7 +186,7 @@ public function FB_school_id()
 
 The first parameter is a new instance of the model you want to use to populate the drop down. The second parameter is the column name you want to use as the ID of `<option id="$id">` tag. The third parameter is the name you want to use to populate the name of the `<option id="$id">{{ $name }}</option>` tag.
  
-### Passing a Closure
+#### Passing a Closure
 
 You can also pass a closure to a SelectField if you want to pass customized data to the select field, and not all of the data in "school" for instance above. 
 
@@ -200,5 +216,19 @@ You can also pass a collection to the SelectField if you want to define static o
 
 ```
 
+#### Adding form fields
+
+To add form fields that are not part of your table schema, simply add the following protected array:
+
+```
+    protected $addFields = [
+        'form_input_id',
+    ];
+
+```
+
+In addition to adding this array, you will need a method on your model of `FB_form_input_id()` to match the new form fields you're adding. If you add a field, and don't provide a method for the field, FormNuilder will throw an error.
+
 This should allow you to customize the form layout as much as you want, or simply use the default values.
+
 
