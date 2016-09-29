@@ -28,20 +28,32 @@ To use the FormBuilder, simply extend your model with `Pta\Formbuilder\Lib\Model
 In your view where you want to display a Form for your Model, simply type:
 
    `{!! FormBuilder::buildForm('Namespace\To\Models\ModelName', 'Method', 'Named Route', 'FormType', ID, 'translation namespace') !!}`
+   
+ID and 'translation namespace' can be NULL values.
 
 Example:
  
    This Form will create a new User
 
-   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create', null, 'Pta\Formbuilder\User::') !!}`
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create') !!}`
    
    This Form will update User with an ID of 1
 
-   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1, 'Pta\Formbuilder\User::') !!}`
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1) !!}`
 
 The Form's are built using a series of Partial Views for each Input Type, and depending on if it's a create or update form.
 
 The form's HTML is based off of Bootstrap 3, and is completely customizable. Simply publish the views and customize them however you want.
+
+## Using Translations
+
+The FormBuilder allows you to pass a namespace path for using a translation file for form labels. For example, I could have a translation namespace configured for a User Model below:
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1, 'Pta\Formbuilder\User::') !!}`
+   
+If we wanted to use a Translation file with a create form, we would need to adjust the create example above as follows:
+   `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create', null, 'Pta\Formbuilder\User::') !!}`
+
+We will have to pass a null value for the ID value. 
 
 ## Publish Views
    `php artisan vendor:publish --provider="Pta\Formbuilder\Providers\FormBuilderServiceProvider" --tag="views"`
