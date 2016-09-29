@@ -48,9 +48,11 @@ The form's HTML is based off of Bootstrap 3, and is completely customizable. Sim
 ## Using Translations
 
 The FormBuilder allows you to pass a namespace path for using a translation file for form labels. For example, I could have a translation namespace configured for a User Model below:
+
    `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Update', 'update', 1, 'Pta\Formbuilder\User::') !!}`
    
 If we wanted to use a Translation file with a create form, we would need to adjust the create example above as follows:
+
    `{!! FormBuilder::buildForm('Pta\Formbuilder\Models\User', 'POST', 'User.Create', 'create', null, 'Pta\Formbuilder\User::') !!}`
 
 We will have to pass a null value for the ID value. 
