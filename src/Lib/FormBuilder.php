@@ -41,7 +41,12 @@ class FormBuilder
      */
     protected $type;
 
-    protected $protected;
+    /**
+     * This is the Route Parameters
+     * Should be an array of named route params
+     * @var string
+     */
+    protected $params;
 
     protected $trans = null;
 
@@ -56,17 +61,18 @@ class FormBuilder
      * @param $method
      * @param $action
      * @param $type
+     * @param $routeParams
      * @param $id
      * @param $trans
      * @return mixed
      */
-    public function buildForm($model, $method, $action, $type, $id = null, $trans=null)
+    public function buildForm($model, $method, $action, $type, $id = null, $trans=null, $routeParams = null)
     {
         if(!is_null(\Config('formbuilder.entity.namespace'))){
             $this->modelNamespace = \Config('formbuilder.entity.namespace');
         }
 
-        $this->protected = \Config('formbuilder.protected');
+        $this->params = $routeParams;
 
         if(!$this->setModel($model)){
             return $this->message;
@@ -252,7 +258,7 @@ class FormBuilder
             }
         }
 
-        return view('pta/formbuilder::partials/update')->with('form',$form)->with('action',$this->action)->with('method',$this->method)->with('formData',$formData)->with('id',$id)->render();
+        return view('pta/formbuilder::partials/update')->with(['form'=>$form,'action'=>$this->action,'params'=>$this->params,'method'=>$this->method,'formData'=>$formData,'id'=>$id])->render();
     }
 
     /**
@@ -292,6 +298,6 @@ class FormBuilder
             }
         }
 
-        return view('pta/formbuilder::partials/create')->with('form',$form)->with('action',$this->action)->with('method',$this->method)->render();
+        return view('pta/formbuilder::partials/create')->with(['form'=>$form,'action'=>$this->action,'params'=>$this->params,'method'=>$this->method])->render();
     }
 }
