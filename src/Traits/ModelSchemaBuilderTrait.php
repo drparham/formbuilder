@@ -107,10 +107,10 @@ Trait ModelSchemaBuilderTrait {
      * @param String $column_name
      * @return mixed
      */
-    public function checkFieldDefinition($column_name)
+    public function checkFieldDefinition($column_name, $id=null)
     {
         if(method_exists($this,'FB_'.$column_name)){
-            return $this->{'FB_'.$column_name}();
+            return $this->{'FB_'.$column_name}($id);
         }
         return false;
     }

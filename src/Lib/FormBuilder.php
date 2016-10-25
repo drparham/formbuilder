@@ -282,7 +282,7 @@ class FormBuilder
             }
 
             if($this->model->checkFieldDefinition($field->Field)){
-                $fieldDef = $this->model->checkFieldDefinition($field->Field);
+                $fieldDef = $this->model->checkFieldDefinition($field->Field, $id);
                 if($this->model->isFieldRequired($field->Field)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
