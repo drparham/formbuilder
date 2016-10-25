@@ -242,7 +242,7 @@ class FormBuilder
             }
 
             if($this->model->checkFieldDefinition($field->Field)){
-                $fieldDef = $this->model->checkFieldDefinition($field->Field);
+                $fieldDef = $this->model->checkFieldDefinition($field->Field, $id);
                 if($this->model->isFieldRequired($field->Field)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true, $this->trans);
                 }else {
@@ -282,7 +282,7 @@ class FormBuilder
             }
 
             if($this->model->checkFieldDefinition($field->Field)){
-                $fieldDef = $this->model->checkFieldDefinition($field->Field, $id);
+                $fieldDef = $this->model->checkFieldDefinition($field->Field);
                 if($this->model->isFieldRequired($field->Field)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
