@@ -30,8 +30,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         // Register the Form Builder
         $this->bindIf('pta.formbuilder.lib.formbuilder', 'Pta\Formbuilder\Lib\FormBuilder');
 
-        $this->app['FormBuilder'] = $this->app->share(function($app)
-        {
+        $this->app->singleton('FormBuilder', function () {
             return new FormBuilder();
         });
 
