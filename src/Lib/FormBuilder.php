@@ -95,7 +95,6 @@ class FormBuilder
         $functionName = $this->type.'Form';
 
         return $this->$functionName($this->model->getSchema(), $id);
-
     }
 
     /**
@@ -113,7 +112,6 @@ class FormBuilder
             $this->message ="Unknown Method, should be either POST, GET, PUT, or PATCH";
             return false;
         }
-
     }
 
     /**
@@ -133,7 +131,6 @@ class FormBuilder
             $this->message = "Unknown Action. Action should be either / for self, or a working route name.";
             return false;
         }
-
     }
 
     /**
@@ -151,7 +148,6 @@ class FormBuilder
             $this->message = "Unknown Model ".$model.", Model should be a Class that extends Pta\\Formbuilder\\Lib\\ModelSchemaBuilder";
             return false;
         }
-
     }
 
     /**
