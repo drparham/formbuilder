@@ -3,6 +3,13 @@
 
 class HiddenField implements FieldInterface
 {
+    protected $value;
+
+    public function __construct($value = null)
+    {
+        $this->value = $value;
+    }
+
     /**
      * Returns a Properly formatted Partial View of a Hidden Field
      * @param $field
@@ -14,10 +21,14 @@ class HiddenField implements FieldInterface
      */
     public function getFormat($field, $labels, $fieldData = null, $required = false, $trans = null)
     {
-        if(!is_null($fieldData)){
-            return view('pta/formbuilder::partials/fields/hidden')->with('field',$field->Field)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
+        if (is_null($fieldData) && !is_null($this->value)) {
+            $fieldData = $this->value;
         }
-        return view('pta/formbuilder::partials/fields/hidden')->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
+
+        if(!is_null($fieldData)){
+            return view('pta/formbuilder::partials/fields/hidden')->with('field',$field->column_name)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
+        }
+        return view('pta/formbuilder::partials/fields/hidden')->with('field',$field->column_name)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
     }
 
 }

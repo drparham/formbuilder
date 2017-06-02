@@ -18,8 +18,8 @@ class TextField implements FieldInterface{
     public function getFormat($field, $labels, $fieldData = null, $required = false, $trans=null)
     {
         if(!is_null($fieldData)){
-            return view('pta/formbuilder::partials/fields/text')->with('field',$field->Field)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
+            return view('pta/formbuilder::partials/fields/text')->with('field',$field->column_name)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
         }
-        return view('pta/formbuilder::partials/fields/text')->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
+        return view('pta/formbuilder::partials/fields/text')->with('field',$field->column_name)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
     }
 }

@@ -18,12 +18,14 @@ Trait ModelSchemaBuilderTrait {
      */
     public function getSchema()
     {
-
         if(!isset($this->skipFields) ){
             $this->skipFields = $this->defaultFields;
         }
         $table = $this->getTable();
-        $fields = \DB::select(\DB::raw("DESCRIBE ".$table));
+        $fields = \DB::select(\DB::raw(
+            "select column_name, data_type as type, character_maximum_length
+             from INFORMATION_SCHEMA.COLUMNS where table_name = '".$table."'"
+        ));
 
         return $this->cleanFields($fields);
     }
@@ -38,14 +40,13 @@ Trait ModelSchemaBuilderTrait {
     {
         $i = 0;
         foreach($fields as $field){
-
-            $parts = explode("(",$field->Type);
-            $field->Type = strtolower($parts['0']);
+            $parts = explode("(",$field->type);
+            $field->type = strtolower($parts['0']);
 
             if(isset($this->skipFields)){
                 $this->defaultFields = array_merge($this->defaultFields, $this->skipFields);
             }
-            if (in_array($field->Field, $this->defaultFields)) {
+            if (in_array($field->column_name, $this->defaultFields)) {
                 unset($fields[$i]);
             }
 
@@ -136,8 +137,8 @@ Trait ModelSchemaBuilderTrait {
     public function fieldDefinition($field)
     {
 
-        if(array_key_exists($field->Type, $this->defaultInputs)){
-            $type = $this->defaultInputs[$field->Type];
+        if(array_key_exists($field->type, $this->defaultInputs)){
+            $type = $this->defaultInputs[$field->type];
         }else {
             $type = "Input";
         }

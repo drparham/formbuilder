@@ -289,9 +289,9 @@ class CountrySelectField implements FieldInterface {
     {
         $data = $this->values;
         if(!is_null($fieldData)){
-            return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->Field)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
+            return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->column_name)->with('labels', $labels)->with('fieldData',$fieldData)->with('required',$required)->with('trans', $trans)->render();
         }
-        return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->Field)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
+        return view('pta/formbuilder::partials/fields/select')->with('data',$data)->with('field',$field->column_name)->with('labels', $labels)->with('required',$required)->with('trans', $trans)->render();
 
     }
 

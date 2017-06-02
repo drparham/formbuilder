@@ -272,21 +272,21 @@ class FormBuilder
 
         $form = array();
         foreach ($fields as $key => $field) {
-            if($field->Field == "id" ) {
+            if($field->column_name == "id" ) {
                 unset($fields[$key]);
                 continue;
             }
 
-            if($this->model->checkFieldDefinition($field->Field)){
-                $fieldDef = $this->model->checkFieldDefinition($field->Field);
-                if($this->model->isFieldRequired($field->Field)){
+            if($this->model->checkFieldDefinition($field->column_name)){
+                $fieldDef = $this->model->checkFieldDefinition($field->column_name);
+                if($this->model->isFieldRequired($field->column_name)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, false, $this->trans);
                 }
             }else {
                 $fieldDef = $this->model->fieldDefinition($field);
-                if($this->model->isFieldRequired($field->Field)){
+                if($this->model->isFieldRequired($field->column_name)){
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, true, $this->trans);
                 }else {
                     $form[] = $fieldDef->getFormat($field, $formLabels, null, false, $this->trans);
