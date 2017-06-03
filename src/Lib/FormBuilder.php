@@ -230,26 +230,26 @@ class FormBuilder
 
         $form = [];
         foreach ($fields as $key => $field) {
-            if($field->Field == "password" ) {
+            if($field->column_name == "password" ) {
                 unset($fields[$key]);
                 continue;
-            }else if($field->Field == 'id'){
+            }else if($field->column_name == 'id'){
                 $field->Type = "hidden";
             }
 
-            if($this->model->checkFieldDefinition($field->Field)){
-                $fieldDef = $this->model->checkFieldDefinition($field->Field, $id);
-                if($this->model->isFieldRequired($field->Field)){
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true, $this->trans);
+            if($this->model->checkFieldDefinition($field->column_name)){
+                $fieldDef = $this->model->checkFieldDefinition($field->column_name, $id);
+                if($this->model->isFieldRequired($field->column_name)){
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->column_name}, true, $this->trans);
                 }else {
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, false, $this->trans);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->column_name}, false, $this->trans);
                 }
             }else {
                 $fieldDef = $this->model->fieldDefinition($field);
-                if($this->model->isFieldRequired($field->Field)){
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, true, $this->trans);
+                if($this->model->isFieldRequired($field->column_name)){
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->column_name}, true, $this->trans);
                 }else {
-                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->Field}, false, $this->trans);
+                    $form[] = $fieldDef->getFormat($field, $formLabels, $formData->{$field->column_name}, false, $this->trans);
                 }
             }
         }
