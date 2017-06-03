@@ -228,6 +228,10 @@ class FormBuilder
         $formData = $this->model->find($id);
         $fields = $this->model->getAddFields($fields);
 
+        if (is_null($formData)) {
+            return "Model ID references doesn't exist.";
+        }
+
         $form = [];
         foreach ($fields as $key => $field) {
             if($field->column_name == "password" ) {
