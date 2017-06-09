@@ -98,6 +98,26 @@ class FormBuilder
     }
 
     /**
+     * This Method makes sure the Model exists, and the Model extends Eloquent/Model
+     * @param $model
+     * @return string
+     */
+    private function setModel($model)
+    {
+        if (is_subclass_of($model, 'Pta\\Formbuilder\\Lib\\ModelSchemaBuilder')) {
+            $this->model = $model;
+            return $this->model;
+        }
+        else if($model = $this->modelExists($model)){
+            $this->model = new $model;
+            return $this->model;
+        }else {
+            $this->message = "Unknown Model ".$model.", Model should be a Class that extends Pta\\Formbuilder\\Lib\\ModelSchemaBuilder";
+            return false;
+        }
+    }
+
+    /**
      * This Method sets the HTTP Method, and makes sure it's a valid Method
      * @param string $method
      * @return string
@@ -129,23 +149,6 @@ class FormBuilder
             return $action;
         }else {
             $this->message = "Unknown Action. Action should be either / for self, or a working route name.";
-            return false;
-        }
-    }
-
-    /**
-     * This Method makes sure the Model exists, and the Model extends Eloquent/Model
-     * @param $model
-     * @return string
-     */
-    private function setModel($model)
-    {
-
-        if($model = $this->modelExists($model)){
-            $this->model = new $model;
-            return $this->model;
-        }else {
-            $this->message = "Unknown Model ".$model.", Model should be a Class that extends Pta\\Formbuilder\\Lib\\ModelSchemaBuilder";
             return false;
         }
     }
@@ -191,7 +194,6 @@ class FormBuilder
     {
 
         if (class_exists($model)) {
-
             if (is_subclass_of($model, 'Pta\\Formbuilder\\Lib\\ModelSchemaBuilder')) {
                 return $model;
             } else {
